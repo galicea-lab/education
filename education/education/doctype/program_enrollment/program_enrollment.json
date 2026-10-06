@@ -21,6 +21,7 @@
   "column_break_ebuo",
   "school_house",
   "boarding_student",
+  "is_tuition_based",
   "enrolled_courses",
   "courses",
   "fees_tab",
@@ -103,6 +104,13 @@
    "label": "Boarding Student"
   },
   {
+   "default": "0",
+   "description": "płatne / niepłatne - czy to zapisanie na program jest odpłatne (np. studia niestacjonarne)",
+   "fieldname": "is_tuition_based",
+   "fieldtype": "Check",
+   "label": "Tuition-Based"
+  },
+  {
    "fieldname": "enrolled_courses",
    "fieldtype": "Section Break",
    "label": "Enrolled courses"
@@ -173,9 +181,14 @@
    "group": "Enrollment",
    "link_doctype": "Course Enrollment",
    "link_fieldname": "program_enrollment"
+  },
+  {
+   "group": "Enrollment",
+   "link_doctype": "Student Academic Status",
+   "link_fieldname": "program_enrollment"
   }
  ],
- "modified": "2024-01-30 15:41:31.016037",
+ "modified": "2026-10-05 13:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Program Enrollment",

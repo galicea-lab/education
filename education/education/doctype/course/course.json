@@ -14,6 +14,12 @@
   "description",
   "section_break_6",
   "topics",
+  "curriculum_section",
+  "ects_credits",
+  "contact_hours",
+  "column_break_curriculum",
+  "class_type",
+  "passing_type",
   "assessment_tab",
   "assessment",
   "default_grading_scale",
@@ -54,6 +60,41 @@
    "label": "Hero Image"
   },
   {
+   "fieldname": "curriculum_section",
+   "fieldtype": "Section Break",
+   "label": "Curriculum Details"
+  },
+  {
+   "description": "European Credit Transfer System points",
+   "fieldname": "ects_credits",
+   "fieldtype": "Float",
+   "label": "ECTS Credits"
+  },
+  {
+   "fieldname": "contact_hours",
+   "fieldtype": "Int",
+   "label": "Contact Hours"
+  },
+  {
+   "fieldname": "column_break_curriculum",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Wykład / Ćwiczenia / Laboratorium / Seminarium / Projekt / Egzamin / Samokształcenie",
+   "fieldname": "class_type",
+   "fieldtype": "Select",
+   "label": "Class Type",
+   "options": "Lecture\nTutorial\nLaboratory\nSeminar\nProject\nExam\nSelf-Study"
+  },
+  {
+   "default": "Pass-Fail",
+   "description": "Ocena / Zaliczenie",
+   "fieldname": "passing_type",
+   "fieldtype": "Select",
+   "label": "Passing Type",
+   "options": "Graded\nPass-Fail"
+  },
+  {
    "fieldname": "assessment",
    "fieldtype": "Section Break"
   },
@@ -92,7 +133,7 @@
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2023-12-19 10:03:17.393260",
+ "modified": "2026-10-05 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Course",

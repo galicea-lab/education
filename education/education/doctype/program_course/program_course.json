@@ -7,7 +7,8 @@
  "field_order": [
   "course",
   "course_name",
-  "required"
+  "required",
+  "semester_number"
  ],
  "fields": [
   {
@@ -33,11 +34,18 @@
    "fieldtype": "Check",
    "in_list_view": 1,
    "label": "Mandatory"
+  },
+  {
+   "description": "Which semester of the program curriculum this course is taught in",
+   "fieldname": "semester_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Semester Number"
   }
  ],
  "istable": 1,
  "links": [],
- "modified": "2020-09-15 18:14:22.816795",
+ "modified": "2026-10-05 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Program Course",

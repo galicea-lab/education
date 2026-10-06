@@ -16,6 +16,7 @@
   "last_name",
   "column_break_4",
   "naming_series",
+  "album_number",
   "joining_date",
   "user",
   "student_applicant",
@@ -54,6 +55,19 @@
   "column_break_31",
   "reason_for_leaving",
   "student_name",
+  "compliance_tab",
+  "section_break_compliance",
+  "marital_status",
+  "identity_card_number",
+  "passport_number",
+  "citizenship",
+  "column_break_compliance",
+  "polon_student_uid",
+  "polon_locality_type",
+  "nip",
+  "phone_home",
+  "phone_work",
+  "private_email",
   "connections_tab"
  ],
  "fields": [
@@ -106,6 +120,15 @@
    "no_copy": 1,
    "options": "EDU-STU-.YYYY.-",
    "set_only_once": 1
+  },
+  {
+   "description": "Numer albumu - niezależny od wewnętrznego ID dokumentu (name), nadawany przez dziekanat i używany na pismach/legitymacjach",
+   "fieldname": "album_number",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Album Number"
   },
   {
    "fieldname": "student_email_id",
@@ -280,6 +303,81 @@
    "label": "Exit"
   },
   {
+   "fieldname": "compliance_tab",
+   "fieldtype": "Tab Break",
+   "label": "Compliance (POL-on)"
+  },
+  {
+   "fieldname": "section_break_compliance",
+   "fieldtype": "Section Break",
+   "label": "Identity & Reporting Details"
+  },
+  {
+   "description": "stan cywilny",
+   "fieldname": "marital_status",
+   "fieldtype": "Select",
+   "label": "Marital Status",
+   "options": "\nSingle\nMarried\nDivorced\nWidowed"
+  },
+  {
+   "description": "dowód osobisty",
+   "fieldname": "identity_card_number",
+   "fieldtype": "Data",
+   "label": "Identity Card Number"
+  },
+  {
+   "description": "nr paszportu",
+   "fieldname": "passport_number",
+   "fieldtype": "Data",
+   "label": "Passport Number"
+  },
+  {
+   "description": "obywatelstwo",
+   "fieldname": "citizenship",
+   "fieldtype": "Data",
+   "label": "Citizenship"
+  },
+  {
+   "fieldname": "column_break_compliance",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Identyfikator studenta w systemie POL-on (nr POL-on)",
+   "fieldname": "polon_student_uid",
+   "fieldtype": "Data",
+   "label": "POL-on Student UID"
+  },
+  {
+   "description": "rodzaj miejscowości (słownik POL-on)",
+   "fieldname": "polon_locality_type",
+   "fieldtype": "Data",
+   "label": "POL-on Locality Type"
+  },
+  {
+   "description": "NIP",
+   "fieldname": "nip",
+   "fieldtype": "Data",
+   "label": "NIP"
+  },
+  {
+   "description": "tel. domowy",
+   "fieldname": "phone_home",
+   "fieldtype": "Data",
+   "label": "Home Phone"
+  },
+  {
+   "description": "tel. służbowy",
+   "fieldname": "phone_work",
+   "fieldtype": "Data",
+   "label": "Work Phone"
+  },
+  {
+   "description": "mail prywatny",
+   "fieldname": "private_email",
+   "fieldtype": "Data",
+   "label": "Private Email"
+  },
+  {
    "fieldname": "connections_tab",
    "fieldtype": "Tab Break",
    "label": "Connections",
@@ -336,6 +434,11 @@
    "link_fieldname": "student"
   },
   {
+   "group": "Student Activity",
+   "link_doctype": "Student Academic Status",
+   "link_fieldname": "student"
+  },
+  {
    "group": "Assessment",
    "link_doctype": "Assessment Result",
    "link_fieldname": "student"
@@ -351,7 +454,7 @@
    "link_fieldname": "student"
   }
  ],
- "modified": "2024-06-07 16:52:48.135292",
+ "modified": "2026-10-05 13:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",
