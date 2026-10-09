@@ -1,0 +1,250 @@
+{
+ "actions": [],
+ "autoname": "EDU-COR-.YYYY.-.#####",
+ "creation": "2026-10-09 08:48:53.441374",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "engine": "InnoDB",
+ "field_order": [
+  "student",
+  "student_name",
+  "album_number",
+  "column_break_student",
+  "correspondence_type",
+  "process_model_key",
+  "subject",
+  "section_break_context",
+  "program",
+  "academic_year",
+  "column_break_context",
+  "status",
+  "content_tab",
+  "description",
+  "form_data",
+  "workflow_tab",
+  "process_instance_id",
+  "column_break_workflow",
+  "signature_status",
+  "signius_folder_id",
+  "signius_document_id",
+  "signed_document",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "student",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Student",
+   "options": "Student",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "student.student_name",
+   "fieldname": "student_name",
+   "fieldtype": "Read Only",
+   "in_global_search": 1,
+   "label": "Student Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "student.album_number",
+   "fieldname": "album_number",
+   "fieldtype": "Read Only",
+   "label": "Album Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_student",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "correspondence_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Correspondence Type",
+   "options": "Correspondence Type",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "correspondence_type.process_model_key",
+   "fieldname": "process_model_key",
+   "fieldtype": "Read Only",
+   "label": "Spiff Process Model Key"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Subject",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_context",
+   "fieldtype": "Section Break",
+   "label": "Kontekst studiów"
+  },
+  {
+   "fieldname": "program",
+   "fieldtype": "Link",
+   "label": "Program",
+   "options": "Program"
+  },
+  {
+   "fieldname": "academic_year",
+   "fieldtype": "Link",
+   "label": "Academic Year",
+   "options": "Academic Year"
+  },
+  {
+   "fieldname": "column_break_context",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nIn Progress\nAwaiting Signature\nSigned\nCompleted\nRejected\nCancelled"
+  },
+  {
+   "fieldname": "content_tab",
+   "fieldtype": "Tab Break",
+   "label": "Treść sprawy"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "label": "Description"
+  },
+  {
+   "description": "Dane formularza JSON Schema wypełnionego przez studenta we frontendzie (nodavia-wf), zapisywane jako punkt odniesienia dla silnika procesowego.",
+   "fieldname": "form_data",
+   "fieldtype": "Code",
+   "label": "Form Data (JSON)",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "workflow_tab",
+   "fieldtype": "Tab Break",
+   "label": "Workflow (SpiffWorkflow)"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Identyfikator instancji procesu BPMN w SpiffWorkflow, który obsługuje tę sprawę (korelacja Frappe ↔ Spiff).",
+   "fieldname": "process_instance_id",
+   "fieldtype": "Data",
+   "label": "Process Instance ID",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_workflow",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Not Required",
+   "fieldname": "signature_status",
+   "fieldtype": "Select",
+   "label": "Signature Status",
+   "options": "Not Required\nPending\nSigned"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "ID folderu dokumentów w Signius (jeden folder per sprawa) - ustawiane przez wf/routers/signius_api.py.",
+   "fieldname": "signius_folder_id",
+   "fieldtype": "Data",
+   "label": "Signius Folder ID",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "ID dokumentu w Signius (do odpytywania statusu i ściągania podpisanego PDF).",
+   "fieldname": "signius_document_id",
+   "fieldtype": "Data",
+   "label": "Signius Document ID",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "signed_document",
+   "fieldtype": "Attach",
+   "label": "Signed Document"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Student Correspondence",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-10-09 08:48:53.441374",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Student Correspondence",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Education Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Academics User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Student",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "subject",
+ "track_changes": 1
+}
