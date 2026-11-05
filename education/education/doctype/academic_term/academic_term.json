@@ -14,6 +14,9 @@
   "term_start_date",
   "term_end_date",
   "title",
+  "is_summer_term",
+  "exam_session_start_date",
+  "exam_session_end_date",
   "connections_tab"
  ],
  "fields": [
@@ -57,6 +60,25 @@
   {
    "fieldname": "column_break_jhzu",
    "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "letni (l_letni) - odróżnia semestr letni od zimowego w ramach roku akademickiego",
+   "fieldname": "is_summer_term",
+   "fieldtype": "Check",
+   "label": "Summer Term"
+  },
+  {
+   "description": "początek sesji egzaminacyjnej dla tego semestru",
+   "fieldname": "exam_session_start_date",
+   "fieldtype": "Date",
+   "label": "Exam Session Start Date"
+  },
+  {
+   "description": "koniec sesji egzaminacyjnej dla tego semestru",
+   "fieldname": "exam_session_end_date",
+   "fieldtype": "Date",
+   "label": "Exam Session End Date"
   },
   {
    "fieldname": "connections_tab",
@@ -107,7 +129,7 @@
    "link_fieldname": "academic_term"
   }
  ],
- "modified": "2024-01-25 11:11:16.432849",
+ "modified": "2026-10-05 13:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Academic Term",

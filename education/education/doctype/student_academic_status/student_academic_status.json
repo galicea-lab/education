@@ -1,0 +1,204 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "EDU-SAS-.YYYY.-.#####",
+ "creation": "2026-10-05 12:00:00.000000",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "engine": "InnoDB",
+ "field_order": [
+  "student",
+  "student_name",
+  "column_break_1",
+  "program_enrollment",
+  "academic_year",
+  "academic_term",
+  "section_break_semester",
+  "semester_number",
+  "status",
+  "column_break_2",
+  "is_summer_semester",
+  "counts_towards_average",
+  "is_paid",
+  "section_break_decision",
+  "registration_date",
+  "decision_date",
+  "column_break_3",
+  "decided_by",
+  "reason",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "student",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Student",
+   "options": "Student",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "student.student_name",
+   "fieldname": "student_name",
+   "fieldtype": "Read Only",
+   "in_global_search": 1,
+   "label": "Student Name"
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "program_enrollment",
+   "fieldtype": "Link",
+   "label": "Program Enrollment",
+   "options": "Program Enrollment"
+  },
+  {
+   "fetch_from": "program_enrollment.academic_year",
+   "fieldname": "academic_year",
+   "fieldtype": "Link",
+   "label": "Academic Year",
+   "options": "Academic Year"
+  },
+  {
+   "fieldname": "academic_term",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Academic Term",
+   "options": "Academic Term"
+  },
+  {
+   "fieldname": "section_break_semester",
+   "fieldtype": "Section Break",
+   "label": "Semester Status"
+  },
+  {
+   "description": "Numer semestru studiów (nr_semestru)",
+   "fieldname": "semester_number",
+   "fieldtype": "Int",
+   "label": "Semester Number"
+  },
+  {
+   "default": "Active",
+   "description": "Stan rozliczenia semestru przez dziekanat",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Active\nClosed\nPassed\nConditional Pass\nFailed\nSuspended",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "letni",
+   "fieldname": "is_summer_semester",
+   "fieldtype": "Check",
+   "label": "Summer Semester"
+  },
+  {
+   "default": "1",
+   "description": "wliczany do średniej",
+   "fieldname": "counts_towards_average",
+   "fieldtype": "Check",
+   "label": "Counts Towards Average"
+  },
+  {
+   "default": "0",
+   "description": "zapłacony",
+   "fieldname": "is_paid",
+   "fieldtype": "Check",
+   "label": "Paid"
+  },
+  {
+   "fieldname": "section_break_decision",
+   "fieldtype": "Section Break",
+   "label": "Decision"
+  },
+  {
+   "description": "data rejestracji zdarzenia",
+   "fieldname": "registration_date",
+   "fieldtype": "Date",
+   "label": "Registration Date"
+  },
+  {
+   "description": "data decyzji",
+   "fieldname": "decision_date",
+   "fieldtype": "Date",
+   "label": "Decision Date"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "decided_by",
+   "fieldtype": "Link",
+   "label": "Decided By",
+   "options": "Instructor"
+  },
+  {
+   "description": "powód",
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Student Academic Status",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-10-05 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Student Academic Status",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Academics User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Student",
+   "share": 1
+  }
+ ],
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "student_name",
+ "track_changes": 1
+}
