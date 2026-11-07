@@ -1,0 +1,11 @@
+- **mLegitymacja:**
+  - doctype `Student Card Order` (student, typ: wydanie, przedłużenie lub unieważnienie, numer zamówienia MLS, status, daty, kody QR i aktywacyjny, błąd),
+  - metody `@frappe.whitelist()` w `education/api.py` (lub `education/integrations/mlegitymacje/api.py`): `create_card_order(student, kind)`, `get_card_order(name)`; odczyt danych osobowych i zdjęcia ze `Student` po stronie Frappe,
+  - zadanie w `scheduler_events` (`hooks.py`) odpytujące `GetOrderStatus` i `GetQrCodes` dla zamówień w toku,
+  - powiadomienie huba o zmianie statusu (webhook Frappe z podpisem HMAC),
+  - `MlsAPI` czyta certyfikat `.p12` i hasło z konfiguracji, nie z kodu; zamiana `print` na `frappe.log_error`,
+  - `students_list()` w `mlsapi.py` to fikcyjny przykład z danymi testowymi; usunąć.
+- **POLON:**
+  - proces przygotowania, wysyłki i weryfikacji sprawozdań (w przyszłości): przygotowanie danych we Frappe, akceptacja w obiegu BPMN w hubie, wysyłka i weryfikacja przez ten konektor,
+  - `polon_add` ma zaszyte wartości przykładowe (rok, kierunek, semestr 2024/2025, `Gender.MALE`); do przepisania na dane `Student` i `Program Enrollment`,
+  - słowniki POLON (`polon-*` w `galwork-hub/wf/services/dictionary_service.py`) mogą zostać w hubie jako słowniki formularzy albo przejść do doctype'ów Frappe.

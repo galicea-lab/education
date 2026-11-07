@@ -52,3 +52,16 @@ def record_signius_document(name: str, folder_id: str, document_id: str):
 	doc.db_set("signius_document_id", document_id)
 	doc.db_set("signature_status", "Pending")
 	doc.db_set("status", "Awaiting Signature")
+
+
+# JW 2026-11-06: wołane przez galwork-hub (edu/services/case_sync.py) po
+# decyzji dziekanatu w procesie edu-pismo - odpowiedź, data i status sprawy
+# (db_set, jak wyżej, niezależnie od docstatus).
+@frappe.whitelist()
+def record_response(name: str, response: str, status: str | None = None):
+	doc = frappe.get_doc("Student Correspondence", name)
+	doc.check_permission("write")
+	doc.db_set("response", response)
+	doc.db_set("response_date", frappe.utils.now_datetime())
+	if status:
+		doc.db_set("status", status)

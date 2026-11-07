@@ -21,6 +21,9 @@
   "content_tab",
   "description",
   "form_data",
+  "response_section",
+  "response",
+  "response_date",
   "workflow_tab",
   "process_instance_id",
   "column_break_workflow",
@@ -131,6 +134,25 @@
    "options": "JSON"
   },
   {
+   "fieldname": "response_section",
+   "fieldtype": "Section Break",
+   "label": "Odpowiedź dziekanatu"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Odpowiedź lub uwagi dziekanatu z procesu BPMN w galwork-hub (zapisywane przez hub)",
+   "fieldname": "response",
+   "fieldtype": "Text Editor",
+   "label": "Odpowiedź"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "response_date",
+   "fieldtype": "Datetime",
+   "label": "Data odpowiedzi",
+   "read_only": 1
+  },
+  {
    "fieldname": "workflow_tab",
    "fieldtype": "Tab Break",
    "label": "Workflow (SpiffWorkflow)"
@@ -192,7 +214,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2026-10-09 08:48:53.441374",
+ "modified": "2026-11-06 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student Correspondence",
