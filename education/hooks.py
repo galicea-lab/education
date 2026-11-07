@@ -13,6 +13,15 @@ app_license = "GNU GPL V3"
 
 required_apps = ["erpnext"]
 
+add_to_apps_screen = [
+    {
+        "name": "education",
+        "logo": "/assets/education/edu-logo.svg",
+        "title": "Education",
+        "route": "/desk/education",
+        "has_permission": "education.api.permissions.has_app_permission",
+    }
+]
 
 # Includes in <head>
 # ------------------
@@ -36,7 +45,7 @@ website_generators = ["Student Admission"]
 
 website_route_rules = [
     {"from_route": "/admissions", "to_route": "Student Admission"},
-    {"from_route": "/student-portal/<path:app_path>", "to_route": "student-portal"},
+    {"from_route": "/edu-portal/<path:app_path>", "to_route": "edu-portal"},
 ]
 
 treeviews = ["Assessment Group"]
@@ -124,9 +133,7 @@ global_search_doctypes = {
 # home_page = "login"
 
 # website user home page (by Role)
-# role_home_page = {
-# 	"Role": "home_page"
-# }
+role_home_page = {"Student": "edu-portal", "Guardian": "edu-portal"}
 
 # Generators
 # ----------
@@ -165,13 +172,13 @@ after_install = "education.install.after_install"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
+permission_query_conditions = {
+    "Student": "education.education.doctype.student.student.get_permission_query_conditions",
+}
+
+has_permission = {
+    "Student": "education.education.doctype.student.student.has_permission",
+}
 
 # DocType Class
 # ---------------
