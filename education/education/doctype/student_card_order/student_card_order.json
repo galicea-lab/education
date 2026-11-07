@@ -1,0 +1,261 @@
+{
+ "actions": [],
+ "autoname": "EDU-SCO-.YYYY.-.#####",
+ "creation": "2026-11-07 06:40:00.000000",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "engine": "InnoDB",
+ "field_order": [
+  "student",
+  "student_name",
+  "album_number",
+  "column_break_student",
+  "kind",
+  "status",
+  "dates_section",
+  "release_date",
+  "expire_date",
+  "column_break_dates",
+  "valid_to",
+  "mls_order_id",
+  "card_section",
+  "student_card_id",
+  "card_download_status",
+  "column_break_card",
+  "mls_status",
+  "last_synced_on",
+  "qr_section",
+  "qr_code",
+  "activation_code",
+  "error_section",
+  "error",
+  "payload_tab",
+  "request_payload",
+  "response_payload",
+  "hub_section",
+  "hub_notified_on"
+ ],
+ "fields": [
+  {
+   "fieldname": "student",
+   "fieldtype": "Link",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Student",
+   "options": "Student",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "student.student_name",
+   "fieldname": "student_name",
+   "fieldtype": "Read Only",
+   "in_global_search": 1,
+   "in_list_view": 1,
+   "label": "Student Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "student.album_number",
+   "fieldname": "album_number",
+   "fieldtype": "Read Only",
+   "label": "Album Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_student",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Issue",
+   "description": "Issue = first student card, Renewal = extension of an existing card, Revocation = card cancellation",
+   "fieldname": "kind",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Order Type",
+   "options": "Issue\nRenewal\nRevocation",
+   "reqd": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nQueued\nSubmitted\nProcessing\nReady\nRevoked\nError"
+  },
+  {
+   "fieldname": "dates_section",
+   "fieldtype": "Section Break",
+   "label": "Card Validity"
+  },
+  {
+   "fieldname": "release_date",
+   "fieldtype": "Date",
+   "label": "Release Date"
+  },
+  {
+   "fieldname": "expire_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date"
+  },
+  {
+   "fieldname": "column_break_dates",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Validity of the QR/activation code returned by MLS",
+   "fieldname": "valid_to",
+   "fieldtype": "Date",
+   "label": "QR Valid To",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mls_order_id",
+   "fieldtype": "Data",
+   "label": "MLS Order ID",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "card_section",
+   "fieldtype": "Section Break",
+   "label": "Student Card"
+  },
+  {
+   "description": "Card identifier assigned by the school before the order is sent",
+   "fieldname": "student_card_id",
+   "fieldtype": "Data",
+   "label": "Student Card ID",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "description": "Whether the student has downloaded the card to the mObywatel application",
+   "fieldname": "card_download_status",
+   "fieldtype": "Data",
+   "label": "Card Download Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_card",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Raw status returned by the MLS API",
+   "fieldname": "mls_status",
+   "fieldtype": "Data",
+   "label": "MLS Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_synced_on",
+   "fieldtype": "Datetime",
+   "label": "Last Synced On",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "qr_section",
+   "fieldtype": "Section Break",
+   "label": "QR Code"
+  },
+  {
+   "fieldname": "qr_code",
+   "fieldtype": "Small Text",
+   "label": "QR Code",
+   "read_only": 1
+  },
+  {
+   "description": "One-time activation code handed to the student together with the QR code",
+   "fieldname": "activation_code",
+   "fieldtype": "Data",
+   "label": "Activation Code",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "error_section",
+   "fieldtype": "Section Break",
+   "label": "Errors"
+  },
+  {
+   "fieldname": "error",
+   "fieldtype": "Small Text",
+   "label": "Error",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payload_tab",
+   "fieldtype": "Tab Break",
+   "label": "API Payloads"
+  },
+  {
+   "description": "Request sent to the MLS API (PESEL and picture are masked)",
+   "fieldname": "request_payload",
+   "fieldtype": "Code",
+   "label": "Request Payload",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "description": "Last response received from the MLS API",
+   "fieldname": "response_payload",
+   "fieldtype": "Code",
+   "label": "Response Payload",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "hub_section",
+   "fieldtype": "Section Break",
+   "label": "Hub Notification"
+  },
+  {
+   "fieldname": "hub_notified_on",
+   "fieldtype": "Datetime",
+   "label": "Hub Notified On",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-11-07 06:40:00.000000",
+ "modified_by": "Administrator",
+ "module": "Education",
+ "name": "Student Card Order",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Academics User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "title_field": "student_name",
+ "track_changes": 1
+}

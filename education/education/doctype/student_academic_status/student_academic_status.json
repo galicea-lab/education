@@ -77,14 +77,14 @@
    "label": "Semester Status"
   },
   {
-   "description": "Numer semestru studiów (nr_semestru)",
+   "description": "Study semester number (nr_semestru)",
    "fieldname": "semester_number",
    "fieldtype": "Int",
    "label": "Semester Number"
   },
   {
    "default": "Active",
-   "description": "Stan rozliczenia semestru przez dziekanat",
+   "description": "Settlement of the semester by the dean's office",
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -99,21 +99,21 @@
   },
   {
    "default": "0",
-   "description": "letni",
+   "description": "summer semester",
    "fieldname": "is_summer_semester",
    "fieldtype": "Check",
    "label": "Summer Semester"
   },
   {
    "default": "1",
-   "description": "wliczany do średniej",
+   "description": "counts towards the average",
    "fieldname": "counts_towards_average",
    "fieldtype": "Check",
    "label": "Counts Towards Average"
   },
   {
    "default": "0",
-   "description": "zapłacony",
+   "description": "paid",
    "fieldname": "is_paid",
    "fieldtype": "Check",
    "label": "Paid"
@@ -124,13 +124,13 @@
    "label": "Decision"
   },
   {
-   "description": "data rejestracji zdarzenia",
+   "description": "date the event was registered",
    "fieldname": "registration_date",
    "fieldtype": "Date",
    "label": "Registration Date"
   },
   {
-   "description": "data decyzji",
+   "description": "date of the decision",
    "fieldname": "decision_date",
    "fieldtype": "Date",
    "label": "Decision Date"
@@ -146,7 +146,7 @@
    "options": "Instructor"
   },
   {
-   "description": "powód",
+   "description": "reason",
    "fieldname": "reason",
    "fieldtype": "Small Text",
    "label": "Reason"
@@ -163,7 +163,7 @@
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2026-10-05 12:00:00.000000",
+ "modified": "2026-11-07 07:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student Academic Status",

@@ -57,6 +57,7 @@
   "student_name",
   "compliance_tab",
   "section_break_compliance",
+  "pesel",
   "marital_status",
   "identity_card_number",
   "passport_number",
@@ -122,7 +123,7 @@
    "set_only_once": 1
   },
   {
-   "description": "Numer albumu - niezależny od wewnętrznego ID dokumentu (name), nadawany przez dziekanat i używany na pismach/legitymacjach",
+   "description": "Album number - independent of the document ID (name); assigned by the dean's office and printed on letters and student cards",
    "fieldname": "album_number",
    "fieldtype": "Data",
    "in_global_search": 1,
@@ -313,26 +314,34 @@
    "label": "Identity & Reporting Details"
   },
   {
-   "description": "stan cywilny",
+   "description": "11-digit personal identification number, used by mLegitymacja and POL-on",
+   "fieldname": "pesel",
+   "fieldtype": "Data",
+   "label": "PESEL",
+   "length": 11,
+   "search_index": 1
+  },
+  {
+   "description": "marital status",
    "fieldname": "marital_status",
    "fieldtype": "Select",
    "label": "Marital Status",
    "options": "\nSingle\nMarried\nDivorced\nWidowed"
   },
   {
-   "description": "dowód osobisty",
+   "description": "national identity card",
    "fieldname": "identity_card_number",
    "fieldtype": "Data",
    "label": "Identity Card Number"
   },
   {
-   "description": "nr paszportu",
+   "description": "passport number",
    "fieldname": "passport_number",
    "fieldtype": "Data",
    "label": "Passport Number"
   },
   {
-   "description": "obywatelstwo",
+   "description": "citizenship",
    "fieldname": "citizenship",
    "fieldtype": "Data",
    "label": "Citizenship"
@@ -342,37 +351,37 @@
    "fieldtype": "Column Break"
   },
   {
-   "description": "Identyfikator studenta w systemie POL-on (nr POL-on)",
+   "description": "Student identifier in the POL-on system (POL-on number)",
    "fieldname": "polon_student_uid",
    "fieldtype": "Data",
    "label": "POL-on Student UID"
   },
   {
-   "description": "rodzaj miejscowości (słownik POL-on)",
+   "description": "place of residence type (POL-on dictionary)",
    "fieldname": "polon_locality_type",
    "fieldtype": "Data",
    "label": "POL-on Locality Type"
   },
   {
-   "description": "NIP",
+   "description": "tax identification number (NIP)",
    "fieldname": "nip",
    "fieldtype": "Data",
    "label": "NIP"
   },
   {
-   "description": "tel. domowy",
+   "description": "home phone",
    "fieldname": "phone_home",
    "fieldtype": "Data",
    "label": "Home Phone"
   },
   {
-   "description": "tel. służbowy",
+   "description": "work phone",
    "fieldname": "phone_work",
    "fieldtype": "Data",
    "label": "Work Phone"
   },
   {
-   "description": "mail prywatny",
+   "description": "private email",
    "fieldname": "private_email",
    "fieldtype": "Data",
    "label": "Private Email"
@@ -452,9 +461,14 @@
    "group": "Attendance",
    "link_doctype": "Student Leave Application",
    "link_fieldname": "student"
+  },
+  {
+   "group": "Compliance",
+   "link_doctype": "Student Card Order",
+   "link_fieldname": "student"
   }
  ],
- "modified": "2026-10-05 13:00:00.000000",
+ "modified": "2026-11-07 07:10:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Student",

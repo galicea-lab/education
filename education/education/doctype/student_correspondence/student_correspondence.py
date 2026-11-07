@@ -23,8 +23,9 @@ class StudentCorrespondence(Document):
 
 @frappe.whitelist()
 def set_process_instance(name: str, process_instance_id: str):
-	"""Wołane przez SpiffWorkflow (Service Task) po wystartowaniu instancji procesu
-	dla tej sprawy - zapisuje identyfikator korelacyjny bez odblokowywania dokumentu."""
+	"""Called by SpiffWorkflow (Service Task) once the process instance for this
+	case has started - stores the correlation identifier without unlocking the
+	document."""
 	doc = frappe.get_doc("Student Correspondence", name)
 	doc.check_permission("write")
 	doc.db_set("process_instance_id", process_instance_id)
@@ -32,8 +33,9 @@ def set_process_instance(name: str, process_instance_id: str):
 
 @frappe.whitelist()
 def update_status(name: str, status: str, signature_status: str | None = None):
-	"""Wołane przez SpiffWorkflow przy zmianie etapu procesu - aktualizuje status
-	sprawy (i opcjonalnie status podpisu) niezależnie od stanu submit/docstatus."""
+	"""Called by SpiffWorkflow when the process moves to another stage - updates
+	the case status (and optionally the signature status) regardless of the
+	submit/docstatus state."""
 	doc = frappe.get_doc("Student Correspondence", name)
 	doc.check_permission("write")
 	doc.db_set("status", status)
@@ -43,9 +45,10 @@ def update_status(name: str, status: str, signature_status: str | None = None):
 
 @frappe.whitelist()
 def record_signius_document(name: str, folder_id: str, document_id: str):
-	"""Wołane przez wf/routers/signius_api.py po wgraniu dokumentu do Signius
-	i zażądaniu podpisu - zapisuje identyfikatory korelacyjne (pola read_only,
-	stąd db_set) i przestawia signature_status na "Pending"."""
+	"""Called by wf/routers/signius_api.py after the document was uploaded to
+	Signius and a signature was requested - stores the correlation identifiers
+	(read_only fields, hence db_set) and switches signature_status to
+	"Pending"."""
 	doc = frappe.get_doc("Student Correspondence", name)
 	doc.check_permission("write")
 	doc.db_set("signius_folder_id", folder_id)
@@ -54,9 +57,9 @@ def record_signius_document(name: str, folder_id: str, document_id: str):
 	doc.db_set("status", "Awaiting Signature")
 
 
-# JW 2026-11-06: wołane przez galwork-hub (edu/services/case_sync.py) po
-# decyzji dziekanatu w procesie edu-pismo - odpowiedź, data i status sprawy
-# (db_set, jak wyżej, niezależnie od docstatus).
+# JW 2026-11-06: called by galwork-hub (edu/services/case_sync.py) after the
+# dean's office decided on the edu-pismo process - response, date and case
+# status (db_set like above, regardless of docstatus).
 @frappe.whitelist()
 def record_response(name: str, response: str, status: str | None = None):
 	doc = frappe.get_doc("Student Correspondence", name)

@@ -63,13 +63,13 @@
   },
   {
    "default": "0",
-   "description": "letni (l_letni) - odróżnia semestr letni od zimowego w ramach roku akademickiego",
+   "description": "summer term (l_letni) - distinguishes the summer semester from the winter one within the academic year",
    "fieldname": "is_summer_term",
    "fieldtype": "Check",
    "label": "Summer Term"
   },
   {
-   "description": "początek sesji egzaminacyjnej dla tego semestru",
+   "description": "start of the examination session of this semester",
    "fieldname": "exam_session_start_date",
    "fieldtype": "Date",
    "label": "Exam Session Start Date"
@@ -129,7 +129,7 @@
    "link_fieldname": "academic_term"
   }
  ],
- "modified": "2026-10-05 13:00:00.000000",
+ "modified": "2026-11-07 07:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Academic Term",

@@ -57,7 +57,7 @@
   },
   {
    "default": "Bachelor",
-   "description": "Licencjackie / Inżynierskie / Magisterskie / Podyplomowe / Inne",
+   "description": "Bachelor / Engineer / Master / Postgraduate / Other",
    "fieldname": "degree_type",
    "fieldtype": "Select",
    "in_standard_filter": 1,
@@ -131,7 +131,7 @@
    "link_fieldname": "program"
   }
  ],
- "modified": "2026-10-05 12:00:00.000000",
+ "modified": "2026-11-07 07:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Program",

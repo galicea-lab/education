@@ -24,7 +24,7 @@
    "unique": 1
   },
   {
-   "description": "Klucz modelu procesu BPMN uruchamianego w SpiffWorkflow dla tego typu sprawy, np. \"student-leave-request\". Pozostaje puste, jeśli typ nie jest jeszcze zautomatyzowany.",
+   "description": "Key of the BPMN process model started in SpiffWorkflow for this case type, e.g. \"student-leave-request\". Left empty when the type is not automated yet.",
    "fieldname": "process_model_key",
    "fieldtype": "Data",
    "in_list_view": 1,
@@ -53,7 +53,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-10-09 08:48:53.441374",
+ "modified": "2026-11-07 07:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Correspondence Type",

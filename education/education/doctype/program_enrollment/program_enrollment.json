@@ -105,7 +105,7 @@
   },
   {
    "default": "0",
-   "description": "płatne / niepłatne - czy to zapisanie na program jest odpłatne (np. studia niestacjonarne)",
+   "description": "paid / free of charge - whether enrolling in the programme is paid (e.g. part-time studies)",
    "fieldname": "is_tuition_based",
    "fieldtype": "Check",
    "label": "Tuition-Based"
@@ -188,7 +188,7 @@
    "link_fieldname": "program_enrollment"
   }
  ],
- "modified": "2026-10-05 13:00:00.000000",
+ "modified": "2026-11-07 07:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Program Enrollment",

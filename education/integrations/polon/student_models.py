@@ -232,7 +232,7 @@ class PagedModelEntityModelStudentInUniversityBasicResponseDocument(BaseModel):
     field_links: Links | None = Field(None, alias='_links')
     page: PageMetadata | None = None
 
-#### dla importu
+# --- import payloads (used when adding students) ---
 class ImportStudentInUniversityRequest(BaseModel):
     externalId: str | None = None
     studentPersonalData: ImportPersonRequest | None = None
@@ -505,7 +505,7 @@ class StudentRequest(BaseModel):
     studentPersonalData: StudentPersonalDataRequest | None = None
     studentCourseData: StudentCourseDataRequest | None = None
 
-########### semestry
+# --- semester corrections ---
 
 class CorrectSemesterWithoutFosRequest(BaseModel):
     studySemester: int | None = None

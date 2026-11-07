@@ -80,7 +80,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "description": "Wykład / Ćwiczenia / Laboratorium / Seminarium / Projekt / Egzamin / Samokształcenie",
+   "description": "Lecture / Tutorial / Laboratory / Seminar / Project / Exam / Self-study",
    "fieldname": "class_type",
    "fieldtype": "Select",
    "label": "Class Type",
@@ -133,7 +133,7 @@
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2026-10-05 12:00:00.000000",
+ "modified": "2026-11-07 07:00:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Course",

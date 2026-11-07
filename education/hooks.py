@@ -223,6 +223,16 @@ has_permission = {
 # 	],
 # }
 
+scheduler_events = {
+	"cron": {
+		# Poll mLegitymacje for orders still being processed: keeps the status,
+		# the QR code and the activation code in sync and notifies the hub.
+		"0/10 * * * *": [
+			"education.integrations.mlegitymacje.tasks.poll_pending_orders",
+		],
+	},
+}
+
 # Testing
 # -------
 
