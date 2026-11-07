@@ -88,7 +88,7 @@
   },
   {
    "default": "Pass-Fail",
-   "description": "Ocena / Zaliczenie",
+   "description": "Graded / Pass-Fail",
    "fieldname": "passing_type",
    "fieldtype": "Select",
    "label": "Passing Type",
@@ -133,7 +133,7 @@
  ],
  "image_field": "hero_image",
  "links": [],
- "modified": "2026-11-07 07:00:00.000000",
+ "modified": "2026-11-07 07:25:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Course",

@@ -75,7 +75,7 @@
    "label": "Exam Session Start Date"
   },
   {
-   "description": "koniec sesji egzaminacyjnej dla tego semestru",
+   "description": "end of the examination session of this semester",
    "fieldname": "exam_session_end_date",
    "fieldtype": "Date",
    "label": "Exam Session End Date"
@@ -129,7 +129,7 @@
    "link_fieldname": "academic_term"
   }
  ],
- "modified": "2026-11-07 07:00:00.000000",
+ "modified": "2026-11-07 07:25:00.000000",
  "modified_by": "Administrator",
  "module": "Education",
  "name": "Academic Term",
