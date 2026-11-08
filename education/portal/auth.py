@@ -83,6 +83,55 @@ def student_for_user(user: str | None = None) -> str | None:
 	return frappe.db.get_value("Student", {"user": user}, "name")
 
 
+def resolve_student_ref(ref: str | None) -> str | None:
+	"""Map a student reference to the ``Student`` docname.
+
+	The hub knows the album number (and the e-mail from Keycloak), not the
+	Frappe docname, so all three are accepted: docname, ``album_number`` and
+	``student_email_id``.
+	"""
+
+	ref = (ref or "").strip()
+	if not ref:
+		return None
+	if frappe.db.exists("Student", ref):
+		return ref
+
+	name = frappe.db.get_value("Student", {"album_number": ref}, "name")
+	if name:
+		return name
+	return frappe.db.get_value("Student", {"student_email_id": ref}, "name")
+
+
+def resolve_instructor_ref(ref: str | None) -> str | None:
+	"""Map a lecturer reference to the ``Instructor`` docname.
+
+	Accepted: docname, the login e-mail (``Instructor.user_id`` when the field
+	exists, otherwise ``Employee.user_id``/``company_email``/``personal_email``
+	through ``Instructor.employee``) and the employee id.
+	"""
+
+	ref = (ref or "").strip()
+	if not ref:
+		return None
+	if frappe.db.exists("Instructor", ref):
+		return ref
+
+	if frappe.get_meta("Instructor").has_field("user_id"):
+		name = frappe.db.get_value("Instructor", {"user_id": ref}, "name")
+		if name:
+			return name
+
+	for field in ("user_id", "company_email", "personal_email"):
+		employee = frappe.db.get_value("Employee", {field: ref}, "name")
+		if employee:
+			name = frappe.db.get_value("Instructor", {"employee": employee}, "name")
+			if name:
+				return name
+
+	return frappe.db.get_value("Instructor", {"employee": ref}, "name")
+
+
 def instructor_for_user(user: str | None = None) -> str | None:
 	"""Return the ``Instructor`` record of the user.
 
@@ -94,16 +143,7 @@ def instructor_for_user(user: str | None = None) -> str | None:
 	user = user or frappe.session.user
 	if not user or user in ("Guest", "Administrator"):
 		return None
-
-	if frappe.get_meta("Instructor").has_field("user_id"):
-		name = frappe.db.get_value("Instructor", {"user_id": user}, "name")
-		if name:
-			return name
-
-	employee = frappe.db.get_value("Employee", {"user_id": user}, "name")
-	if not employee:
-		return None
-	return frappe.db.get_value("Instructor", {"employee": employee}, "name")
+	return resolve_instructor_ref(user)
 
 
 def require_student(student: str | None = None) -> str:
@@ -118,14 +158,15 @@ def require_student(student: str | None = None) -> str:
 	if is_service_user() or is_staff():
 		if not student:
 			raise PortalAccessError(_("Parameter 'student' is required for this account"))
-		if not frappe.db.exists("Student", student):
+		resolved = resolve_student_ref(student)
+		if not resolved:
 			raise frappe.DoesNotExistError(_("Student {0} does not exist").format(student))
-		return student
+		return resolved
 
 	own_student = student_for_user()
 	if not own_student:
 		raise PortalAccessError(_("The signed-in user is not a student"))
-	if student and student != own_student:
+	if student and resolve_student_ref(student) != own_student:
 		raise PortalAccessError(_("Not permitted to access another student's data"))
 	return own_student
 
@@ -138,16 +179,17 @@ def require_instructor(instructor: str | None = None) -> str:
 	if is_service_user() or is_staff():
 		if not instructor:
 			raise PortalAccessError(_("Parameter 'instructor' is required for this account"))
-		if not frappe.db.exists("Instructor", instructor):
+		resolved = resolve_instructor_ref(instructor)
+		if not resolved:
 			raise frappe.DoesNotExistError(_("Instructor {0} does not exist").format(instructor))
-		return instructor
+		return resolved
 
 	own_instructor = instructor_for_user()
 	if not own_instructor:
 		raise PortalAccessError(
 			_("The signed-in user is not linked to an Instructor record")
 		)
-	if instructor and instructor != own_instructor:
+	if instructor and resolve_instructor_ref(instructor) != own_instructor:
 		raise PortalAccessError(_("Not permitted to access another lecturer's data"))
 	return own_instructor
 
