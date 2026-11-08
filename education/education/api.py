@@ -98,6 +98,55 @@ def enroll_student(source_name: str):
     return program_enrollment
 
 
+def create_student(
+    data: dict, create_user: bool | None = None, assign_album_number: bool = False
+):
+    """Create a ``Student`` from a dict of its fields (used by apps that admit students).
+
+    :param data: ``Student`` field values; ``first_name`` and ``student_email_id``
+        are required.
+    :param create_user: ``False`` skips creating the website user (e.g. when
+        accounts are managed by an identity provider), ``None`` follows
+        Education Settings.
+    :param assign_album_number: give the next album number
+        (``education.education.album_number``) unless ``data`` has one.
+    """
+    from education.education.album_number import next_album_number
+
+    student = frappe.new_doc("Student")
+    student.update(data)
+    if assign_album_number and not student.album_number:
+        student.album_number = next_album_number()
+    if create_user is False:
+        student.flags.skip_user_creation = True
+    student.insert(ignore_permissions=True)
+    return student
+
+
+def make_program_enrollment(
+    student: str,
+    program: str,
+    academic_year: str,
+    academic_term: str | None = None,
+    student_category: str | None = None,
+    enrollment_date: str | None = None,
+    submit: bool = False,
+):
+    """Create a ``Program Enrollment`` of a student; submitted only if ``submit`` is set."""
+
+    program_enrollment = frappe.new_doc("Program Enrollment")
+    program_enrollment.student = student
+    program_enrollment.program = program
+    program_enrollment.academic_year = academic_year
+    program_enrollment.academic_term = academic_term
+    program_enrollment.student_category = student_category
+    program_enrollment.enrollment_date = enrollment_date or today()
+    program_enrollment.insert(ignore_permissions=True)
+    if submit:
+        program_enrollment.submit()
+    return program_enrollment
+
+
 @frappe.whitelist()
 def check_attendance_records_exist(
     course_schedule: str | None = None,

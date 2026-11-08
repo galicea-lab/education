@@ -73,6 +73,8 @@ class Student(Document):
 
     def validate_user(self):
         """Create a website user for student creation if not already exists"""
+        if self.flags.skip_user_creation:
+            return
         if not frappe.db.get_single_value(
             "Education Settings", "user_creation_skip"
         ) and not frappe.db.exists("User", self.student_email_id):
