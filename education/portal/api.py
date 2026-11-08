@@ -20,7 +20,7 @@ from frappe import _
 from frappe.utils import add_days, today
 
 from education.portal import attendance as attendance_portal
-from education.portal import auth, card, cases, fees, grades, lecturer, schedule
+from education.portal import auth, card, cases, fees, grades, lecturer, schedule, studies
 
 
 def _range(from_date: str | None, to_date: str | None) -> tuple:
@@ -73,6 +73,14 @@ def get_capabilities() -> dict:
 # ----------------------------------------------------------------------
 # student data
 # ----------------------------------------------------------------------
+@frappe.whitelist()
+def get_studies(student: str | None = None) -> dict:
+	"""Profile, programme enrollments and semester settlements ("Moje studia")."""
+
+	who = auth.require_student(student)
+	return studies.for_student(who)
+
+
 @frappe.whitelist()
 def get_schedule(
 	from_date: str | None = None,
