@@ -20,7 +20,17 @@ from frappe import _
 from frappe.utils import add_days, today
 
 from education.portal import attendance as attendance_portal
-from education.portal import auth, card, cases, fees, grades, lecturer, schedule, studies
+from education.portal import (
+	auth,
+	card,
+	cases,
+	fees,
+	grades,
+	lecturer,
+	schedule,
+	semester_card,
+	studies,
+)
 
 
 def _range(from_date: str | None, to_date: str | None) -> tuple:
@@ -61,6 +71,7 @@ def get_capabilities() -> dict:
 		"features": {
 			"schedule": kind in ("student", "instructor", "service", "staff"),
 			"grades": kind in ("student", "service", "staff"),
+			"semester_card": kind in ("student", "service", "staff"),
 			"attendance": kind in ("student", "service", "staff"),
 			"fees": kind in ("student", "service", "staff"),
 			"cases": kind in ("student", "service", "staff"),
@@ -120,6 +131,22 @@ def get_grades(
 
 	who = auth.require_student(student)
 	return grades.for_student(who, academic_year, academic_term)
+
+
+@frappe.whitelist()
+def get_semester_card(
+	student: str | None = None,
+	academic_term: str | None = None,
+	program: str | None = None,
+) -> dict:
+	"""Semester achievement card (KOOS): courses of the semester, form of classes,
+	passing type, attempts and grades, lecturers, ECTS and the semester settlement.
+
+	Without ``academic_term`` the latest settled semester is used, without
+	``program`` the latest submitted programme enrollment."""
+
+	who = auth.require_student(student)
+	return semester_card.for_student(who, academic_term, program)
 
 
 @frappe.whitelist()

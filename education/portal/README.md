@@ -22,7 +22,10 @@ Konfiguracja (`site_config.json`):
 "portal": {
   "service_users": ["hub@uczelnia.pl"],
   "passing_percentage": 50,
-  "reveal_codes_requires_password": true
+  "reveal_codes_requires_password": true,
+  "semester_card": {
+    "attempt_labels": {"Termin I": "I", "Poprawka": "II", "Komis": "K"}
+  }
 }
 ```
 
@@ -64,6 +67,7 @@ Wszystkie przez `POST /api/method/education.portal.api.<nazwa>`.
 | --- | --- | --- |
 | `get_schedule(from_date?, to_date?, program?)` | zakres dat (domyślnie 7 dni) | `{kind, student, from, to, entries[]}` |
 | `get_grades(academic_year?, academic_term?)` | filtr opcjonalny | `{courses[], average, semesters[], passing_percentage}` |
+| `get_semester_card(academic_term?, program?)` | domyślnie ostatni rozliczony semestr | Karta Okresowych Osiągnięć — zob. niżej |
 | `get_attendance(from_date?, to_date?)` | zakres opcjonalny | `{overall, groups[], absences[]}` |
 | `get_fees()` | — | `{fees[], totals, payment_required}` |
 | `get_case_types()` | — | aktywne `Correspondence Type` |
@@ -88,6 +92,35 @@ Wszystkie przez `POST /api/method/education.portal.api.<nazwa>`.
 
 Konto usługi dokłada `student=` / `instructor=` do każdego wywołania.
 
+## Karta Okresowych Osiągnięć (`get_semester_card`)
+
+`education/portal/semester_card.py` — jedno wywołanie na kartę jednego
+semestru (zapis na program × semestr akademicki):
+
+| element karty | źródło |
+| --- | --- |
+| nagłówek: student, kierunek, stopień, tryb | `Student`, `Program` (`degree_type`, `study_mode`) |
+| rok akademicki, semestr, rok studiów, semestr następny | `Academic Term`, `Student Academic Status.semester_number`, plan programu |
+| rozliczenie semestru | `Student Academic Status` |
+| przedmioty semestru | `Program Course.semester_number` + przedmioty z ocenami / grupami w tym semestrze |
+| forma zajęć, forma zaliczenia, ECTS | `Course.class_type`, `passing_type`, `ects_credits` |
+| podejścia i oceny | zatwierdzone `Assessment Result` semestru; zaliczenie jak w `get_grades` |
+| termin (I, II, poprawka, komis) | `Assessment Group` wyniku → `portal.semester_card.attempt_labels`; bez mapy — numer podejścia |
+| wykładowca | egzaminator planu oceniania ostatniego podejścia, potem wcześniejszych, potem prowadzący grupy |
+| tytuł naukowy | `Employee.salutation` pracownika powiązanego z `Instructor` |
+| przedmiot dodatkowy | z planu: wcześniejszy semestr → `repeat` (powtarzanie, warunek), spoza planu → `program_difference`, późniejszy → `other_semester` |
+
+Wynik: `{student, program, academic_year, academic_term, semester_number,
+year_of_study, year_of_study_roman, next_semester_number, semester_status,
+courses[], totals}`. `totals` rozdziela ECTS planowe i dodatkowe (planowane /
+uzyskane) i podaje średnie ważone ECTS: procentową oraz z ocen liczbowych.
+
+Ograniczenia: kategoria przedmiotu dodatkowego jest wyliczana z planu, a nie
+zapisana przy studencie (warunek i powtarzanie są nierozróżnialne);
+specjalności nie ma w modelu. Pomocnicze odczyty (plan programu, plany
+oceniania wyników studenta, prowadzący jego grup) idą przez `frappe.get_all`,
+zawężone do danych tego studenta.
+
 ## Format i zasady
 
 - Odpowiedzi są słownikami gotowymi do JSON-a (daty jako `YYYY-MM-DD`), bez
@@ -110,3 +143,9 @@ cudzych ocen, brak możliwości podstawienia cudzych grup w starym endpointcie),
 `TestPortalService` ścieżkę huba (kontekst wykładowcy, obrona cudzej grupy,
 idempotentny zapis obecności, webhook przy nowej sprawie), `TestPortalConfig`
 parsowanie konfiguracji bez bazy.
+
+```bash
+bench --site <site> run-tests --module education.portal.test_semester_card
+```
+
+Składanie karty (`build_card`) bez bazy oraz dostęp do `get_semester_card`.

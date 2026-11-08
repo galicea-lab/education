@@ -24,6 +24,7 @@ RESULT_FIELDS = [
 	"academic_term",
 	"student_group",
 	"assessment_plan",
+	"assessment_group",
 	"grading_scale",
 	"total_score",
 	"maximum_score",
@@ -69,6 +70,28 @@ def _percentage(score, maximum) -> float | None:
 	return round(flt(score) / maximum * 100, 2)
 
 
+def attempt(result, threshold: float) -> dict:
+	"""One attempt (one submitted ``Assessment Result``) with the pass decision.
+
+	Shared by :func:`for_student` and :mod:`education.portal.semester_card`."""
+
+	percentage = _percentage(result.total_score, result.maximum_score)
+	grade = result.grade
+	if not grade and percentage is not None:
+		grade = grade_from_scale(result.grading_scale, percentage)
+	return {
+		"assessment_result": result.name,
+		"assessment_plan": result.assessment_plan,
+		"assessment_group": result.get("assessment_group"),
+		"date": str(result.modified)[:10] if result.modified else None,
+		"score": flt(result.total_score),
+		"maximum": flt(result.maximum_score),
+		"percentage": percentage,
+		"grade": grade,
+		"passed": None if percentage is None else percentage >= threshold,
+	}
+
+
 def _course_meta(courses: list[str]) -> dict:
 	if not courses:
 		return {}
@@ -108,22 +131,6 @@ def for_student(
 
 	grouped: dict[str, dict] = {}
 	for result in results:
-		percentage = _percentage(result.total_score, result.maximum_score)
-		grade = result.grade
-		if not grade and percentage is not None:
-			grade = grade_from_scale(result.grading_scale, percentage)
-
-		attempt = {
-			"assessment_result": result.name,
-			"assessment_plan": result.assessment_plan,
-			"date": str(result.modified)[:10] if result.modified else None,
-			"score": flt(result.total_score),
-			"maximum": flt(result.maximum_score),
-			"percentage": percentage,
-			"grade": grade,
-			"passed": None if percentage is None else percentage >= threshold,
-		}
-
 		entry = grouped.setdefault(
 			result.course,
 			{
@@ -138,7 +145,7 @@ def for_student(
 				"attempts": [],
 			},
 		)
-		entry["attempts"].append(attempt)
+		entry["attempts"].append(attempt(result, threshold))
 
 	grade_rows = []
 	for entry in (value for _, value in sorted(grouped.items(), key=lambda item: item[0] or "")):
