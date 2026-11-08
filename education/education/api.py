@@ -809,7 +809,28 @@ def get_course_list_based_on_program(program_name: str):
 
 
 @frappe.whitelist()
+def _portal_safe_student_groups(student_groups: list) -> list:
+    """Ignore group labels sent by the browser for portal users.
+
+    A student must not be able to read the timetable of a group they do not
+    belong to by passing its label; staff and trusted services keep the old
+    behaviour. See education/portal/auth.py.
+    """
+    from education.portal import auth
+
+    user = frappe.session.user
+    if auth.is_service_user(user) or auth.is_staff(user):
+        return student_groups
+
+    student = auth.student_for_user(user)
+    if not student:
+        return student_groups
+
+    return [{"label": name} for name in auth.student_group_names(student)]
+
+
 def get_course_schedule_for_student(program_name: str, student_groups: list):
+    student_groups = _portal_safe_student_groups(student_groups)
     student_groups = [sg.get("label") for sg in student_groups]
 
     schedule = frappe.db.get_list(

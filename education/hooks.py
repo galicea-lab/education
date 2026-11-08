@@ -174,10 +174,34 @@ after_install = "education.install.after_install"
 
 permission_query_conditions = {
     "Student": "education.education.doctype.student.student.get_permission_query_conditions",
+    # Portal roles (Student/Guardian/Instructor) see only their own rows -
+    # see education/portal/permissions.py. Users with desk roles are untouched.
+    "Assessment Result": "education.portal.permissions.assessment_result_query",
+    "Course Schedule": "education.portal.permissions.course_schedule_query",
+    "Fees": "education.portal.permissions.fees_query",
+    "Program Enrollment": "education.portal.permissions.program_enrollment_query",
+    "Student Academic Status": "education.portal.permissions.student_academic_status_query",
+    "Student Attendance": "education.portal.permissions.student_attendance_query",
+    "Student Card Order": "education.portal.permissions.student_card_order_query",
+    "Student Correspondence": "education.portal.permissions.student_correspondence_query",
+    "Student Group": "education.portal.permissions.student_group_query",
+    "Student Leave Application": "education.portal.permissions.student_leave_application_query",
 }
 
 has_permission = {
     "Student": "education.education.doctype.student.student.has_permission",
+    # Document-level counterpart of the list conditions above: without it
+    # frappe.get_doc() of a foreign document would still succeed.
+    "Assessment Result": "education.portal.permissions.assessment_result_has_permission",
+    "Course Schedule": "education.portal.permissions.course_schedule_has_permission",
+    "Fees": "education.portal.permissions.fees_has_permission",
+    "Program Enrollment": "education.portal.permissions.program_enrollment_has_permission",
+    "Student Academic Status": "education.portal.permissions.student_academic_status_has_permission",
+    "Student Attendance": "education.portal.permissions.student_attendance_has_permission",
+    "Student Card Order": "education.portal.permissions.student_card_order_has_permission",
+    "Student Correspondence": "education.portal.permissions.student_correspondence_has_permission",
+    "Student Group": "education.portal.permissions.student_group_has_permission",
+    "Student Leave Application": "education.portal.permissions.student_leave_application_has_permission",
 }
 
 # DocType Class
