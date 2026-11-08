@@ -211,6 +211,16 @@ def order_card(
 
 
 @frappe.whitelist()
+def refresh_card(student: str | None = None) -> dict:
+	"""Re-poll MLS for the student's newest order and return the fresh state."""
+
+	who = auth.require_student(student)
+	state = card.refresh_state(who)
+	state["student"] = who
+	return state
+
+
+@frappe.whitelist()
 def reveal_card_codes(password: str | None = None, student: str | None = None) -> dict:
 	"""Return the QR and activation codes of a ready card (audited)."""
 

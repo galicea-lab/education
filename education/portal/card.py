@@ -79,6 +79,44 @@ def state_for_student(student: str) -> dict:
 	}
 
 
+def refresh_state(student: str) -> dict:
+	"""Re-poll MLS for the newest order of the student and return the state.
+
+	The scheduler polls every ten minutes; the portal uses this when a student
+	presses "refresh" and the card should be ready now.
+	"""
+
+	orders = frappe.get_list(
+		DOCTYPE,
+		filters={
+			"student": student,
+			"kind": ["!=", "Revocation"],
+			"mls_order_id": ["is", "set"],
+		},
+		fields=["name", "status"],
+		order_by="creation desc",
+		limit_page_length=1,
+	)
+	if not orders:
+		return state_for_student(student)
+
+	order = orders[0]
+	if order["status"] in ACTIVE_STATUSES or order["status"] == "Error":
+		from education.integrations.mlegitymacje import service
+
+		try:
+			service.refresh_card_order(order["name"])
+		except Exception:
+			frappe.log_error(
+				title="Portal card refresh failed",
+				message=frappe.get_traceback(),
+				reference_doctype=DOCTYPE,
+				reference_name=order["name"],
+			)
+
+	return state_for_student(student)
+
+
 def order_card(
 	student: str,
 	kind: str = "Issue",
